@@ -1,10 +1,10 @@
-FROM php:56-apache
+FROM php:5.6-apache
 
 MAINTAINER Philipp Bucher <bucher@navigate.de>
 
 # Fix docker-php-ext-install script error
 RUN sed -i 's/docker-php-\(ext-$ext.ini\)/\1/' /usr/local/bin/docker-php-ext-install
-
+ 
 # Install other needed extensions
 RUN apt-get update && apt-get install -y libfreetype6 git-core libjpeg62-turbo libmcrypt4 libpng12-0 sendmail --no-install-recommends && rm -rf /var/lib/apt/lists/*
 RUN buildDeps=" \
