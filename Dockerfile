@@ -40,6 +40,14 @@ RUN cat /usr/src/php/php.ini-production | sed 's/^;\(date.timezone.*\)/\1 \"Etc\
 # Disable cgi.fix_pathinfo in php.ini
 RUN sed -i 's/;\(cgi\.fix_pathinfo=\)1/\10/' /usr/local/etc/php/php.ini
 
+# Install ioncube
+RUN mkdir -p /tmp/install/ && \
+    cd /tmp/install && \
+    wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.bz2 && \
+    tar xfj ioncube_loaders_lin_x86-64.tar.bz2 && \
+    mv ioncube/ioncube_loader_lin_5.6.so $(php-config --extension-dir)/ioncube_loader.so && \
+    rm -rf /tmp/install
+
 RUN usermod -u 1000 www-data && a2enmod rewrite
 
 WORKDIR /var/www/html
