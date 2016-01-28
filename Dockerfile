@@ -47,6 +47,8 @@ RUN mkdir -p /tmp/install/ && \
     tar xfj ioncube_loaders_lin_x86-64.tar.bz2 && \
     mv ioncube/ioncube_loader_lin_5.6.so $(php-config --extension-dir)/ioncube_loader.so && \
     rm -rf /tmp/install
+# Enable ioncube
+RUN echo "zend_extension=$(php-config --extension-dir)/ioncube_loader.so" > /etc/php5/conf.d/20_ioncube_loder.ini
 
 RUN usermod -u 1000 www-data && a2enmod rewrite
 
